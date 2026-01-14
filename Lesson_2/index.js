@@ -64,5 +64,30 @@ calculate();
 
 //execution: asynchronous & synchronous 
 
-//
+//argument & parameter
+
+// define {parameters: a and b}
+function calculate(a, b) {
+    return a + b;
+}
+
+// calling 
+const func = calculate(1,2);
+console.log(func);
+
+
+
+// function priority
+let a2 = 50;
+
+function sum(a, b) {
+    // let a2 = 50;
+    return a2 + b;
+}
+console.log(sum(10, 20));
+
+//at first when you call a variable inside a function it searches from inside the function
+// if it finds stops there if it cannot find it searches inside the parameter if finds
+// it stops there if it cannot it will search outside the function if finds it stops there 
+// if it cannot find the variable it will stops there
 
