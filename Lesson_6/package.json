@@ -1,11 +1,9 @@
 {
-  "name": "lesson_5",
+  "name": "lesson_6",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon Encapsulation.js",
-    "inheritance": "nodemon Inheritance.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
