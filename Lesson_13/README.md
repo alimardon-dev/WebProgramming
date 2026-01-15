@@ -1,0 +1,1 @@
+The lesson video file did not even exist 
