@@ -1,3 +1,3 @@
 main focus here is on callback function.
-callback function function helps to run the program even if some part of the progrom is slow. 
-it just skips the slow part and finishes running the program and then later show the slow part of the program
+it is used inside another function and runs at a specific time. 
+if we set a timer for the function the program continues to run and does not wait for the timer. and when timer is finished the callback function runs. 
