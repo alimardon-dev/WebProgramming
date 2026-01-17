@@ -1,29 +1,33 @@
 const http = require("http");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = require("./app");
+const uri = require("./uri");
 
-const connectionString = "mongodb+srv://alimardon-dev:%24Alimardon2004@cluster0.5gltfie.mongodb.net";
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 
-const client = new MongoClient(connectionString);
-
-async function startServer() {
-    try {
-        await client.connect();
-        console.log("MongoDB connection Succeed");
-        const db = client.db();
-
-        // Make db available to requests via app.locals or middleware
-        // This is a common pattern to pass db to routes
-        app.locals.db = db;
-
-        const server = http.createServer(app);
-        let PORT = 3000;
-        server.listen(PORT, function () {
-            console.log(`The server is running on PORT ${PORT}`);
-        });
-    } catch (err) {
-        console.log("ERROR on connection MongoDB", err);
-    }
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
 }
+run().catch(console.dir);
 
-startServer();
+const server = http.createServer(app);
+const PORT = 3000;
+server.listen(PORT, ()=>{
+    console.log("The server is running on server");
+});
