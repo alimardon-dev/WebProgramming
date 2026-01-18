@@ -1,7 +1,5 @@
 const express = require("express")
 const app = express();
-// making http module to create servers and handle request and responses between server and browser
-const http = require("http");
 
 //MongoDB calling
 // const db = require("./server").db(); 
@@ -43,6 +41,9 @@ app.get("/", (req, res) => {
     // shows the output from "views" folder
     res.render("reja")
 })
+
+
+
 
 // exporting app 
 module.exports = app;
