@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { client } = require("./db/index");
+
 let db;
 const getDB = () => {
   if (!db) db = client.db("Reja");
