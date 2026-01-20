@@ -128,9 +128,9 @@ document
           .post("/delete-all",
             {delete_all: true})
 
-      alert(response.data.state);
+      alert(response.deletedCount);
+      console.log(response.data);
       document.location.reload();
-    
     } catch (err) {
       console.log("Error occured while deleting all", err);
     }

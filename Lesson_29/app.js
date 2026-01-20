@@ -128,12 +128,15 @@ app.post("/edit-item", async (req, res) => {
 app.post("/delete-all", async (req, res)=> {
   try {
     if (req.body.delete_all) {
-    await getDB().collection("plans").deleteMany(()=>{
-      res.json({state: "Hammasi o'chdi"});
-    })}
-  
+      const result = await getDB().collection("plans").deleteMany({})
+      res.json({ state: `Hammasi o'chdi (${result.deletedCount} ta)` });
+      console.log(result);
+    }else{
+      console.log("there is nothing to delete");
+    }
   } catch (err) {
     console.log("Error occured while deleting all the plans", err);
+    res.status(500).json({ state: "Delete failed" });
   }
 })
 
