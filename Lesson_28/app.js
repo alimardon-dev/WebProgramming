@@ -76,22 +76,68 @@ app.post("/create-item", async (req, res) => {
 });
 
 app.post("/delete-item", async (req, res) => {
-  
-  // getting clicked button id from front-end page
-  // and the button id is used to delete data from database
-  const id = req.body.id;
-  getDB()
-    .collection("plans").deleteOne({_id: new ObjectId(id)}, (err, data)=>{
-      res.json({state: "Success"})
-      console.log("Successfully deleted")
-  })
-  console.log(id);
-  res.end("Done");
+  try {  
+    // getting clicked button id from front-end page
+    // and the button id is used to delete data from database
+    const id = req.body.id;
+
+    // this returns if deleted or not
+    // deleteOrNot = {acknowledge: true,
+    //   deleteCount: 1
+    // }
+    const deletedOrNot =
+     await getDB()
+                .collection("plans").deleteOne({_id: new ObjectId(id)})
+
+    // console.log(deletedOrNot);
+    
+    if (deletedOrNot.acknowledged){
+      res.json({state: "Success"});
+      console.log("Successfully deleted and sent a response to front-end", id)
+    }
+  } catch (error) {
+    console.log("Something went wrong during deleting: ", err);    
+  }
 });
 
+// editing and sending new data to front-end 
+app.post("/edit-item", async (req, res) => {
+  try {
+  // modified data came from front-end
+  const data = req.body;
+  console.log(data);
+  
+  const editedValue = await getDB()
+    .collection("plans")
+    .findOneAndUpdate(
+      {_id: new ObjectId(data.id)},
+      {$set: {reja: data.new_input}}
+      
+    );
+    res.json({ 
+      test:"Success",
+      updatedItem: editedValue.value
+    })
+      console.log("Database'ga kiritildi");
+  }
+  catch(err){
+    console.log("Error occured while Editing");
+  }
+});
 
-// app.get("/author", (req, res) => {
-//   res.render("author", { user: { name: "Alimardon", secName: "Dev" } });
-// });
+app.post("/delete-all", async (req, res)=> {
+  try {
+    if (req.body.delete_all) {
+      const result = await getDB().collection("plans").deleteMany({})
+      res.json({ state: `Hammasi o'chdi (${result.deletedCount} ta)` });
+      console.log(result);
+    }else{
+      console.log("there is nothing to delete");
+    }
+  } catch (err) {
+    console.log("Error occured while deleting all the plans", err);
+    res.status(500).json({ state: "Delete failed" });
+  }
+})
 
 module.exports = app;
