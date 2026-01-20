@@ -1,0 +1,14 @@
+{
+  "name": "lesson_29",
+  "version": "1.0.0",
+  "description": "TRY CATCH block most used cases:\r     when using AWAIT functions\r     when working with ROUTES\r     when using external APIs\r     when working with database operations\r     when working with a file",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
